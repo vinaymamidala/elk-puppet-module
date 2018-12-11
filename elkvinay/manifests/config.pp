@@ -14,6 +14,15 @@ class elkvinay::config (
       ensure  => file,
       content => template('elkvinay/kibana.nginx.conf.erb'),
       path    => '/etc/nginx/conf.d/kibana.conf',
+      #content => template('elkvinay/nginx.conf.erb'),
+      #path    => '/etc/nginx/nginx.conf',
+      notify  => Service['nginx'],
+    }
+    file {'kibana default config':
+      ensure => file,
+      replace => true,
+      content => template('elkvinay/nginx.conf.erb'),
+      path => '/etc/nginx/nginx.conf',
       notify  => Service['nginx'],
     }
   }
